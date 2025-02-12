@@ -11,7 +11,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'io.spring.javaformat'
-apply plugin: "com.jfrog.artifactory"
+apply plugin: 'com.jfrog.artifactory'
 
 gradle.startParameter.excludedTaskNames += [ "checkFormatAot", "checkFormatAotTest" ]
 
