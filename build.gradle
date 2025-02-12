@@ -1,27 +1,15 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.+"
-    }
-}
-
 plugins {
   id 'java'
   id 'org.springframework.boot' version '3.2.0'
   id 'io.spring.dependency-management' version '1.1.4'
   id 'org.graalvm.buildtools.native' version '0.9.28'
   id 'io.spring.javaformat' version '0.0.41'
-  id 'io.spring.nohttp' version '0.0.11'
-  id 'com.jfrog.artifactory' version '5.2.5'
+  id "io.spring.nohttp" version "0.0.11"
 }
 
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'io.spring.javaformat'
-apply plugin: 'com.jfrog.artifactory'
 
 gradle.startParameter.excludedTaskNames += [ "checkFormatAot", "checkFormatAotTest" ]
 
@@ -31,36 +19,6 @@ sourceCompatibility = '17'
 
 repositories {
   mavenCentral()
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
-artifactory {
-    contextUrl = 'https://soleng.jfrog.io/'   //The base Artifactory URL if not overridden by the publisher/resolver
-    publish {
-        repository {
-            repoKey = 'shani-gradle-dev-local'
-            username = System.getenv("JFROG_USER")
-            password = System.getenv("JFROG_API_KEY")
-            maven = true
-            
-        }
-    }
-    resolve {
-        repository {
-            repoKey = 'shani-gradle-remote'
-            username = System.getenv("JFROG_USER")
-            password = System.getenv("JFROG_API_KEY")
-            maven = true
-            
-        }
-    }
 }
 
 ext.webjarsFontawesomeVersion = "4.7.0"
