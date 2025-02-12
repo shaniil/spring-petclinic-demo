@@ -17,6 +17,12 @@ group = 'org.springframework.samples'
 version = '3.2.0'
 sourceCompatibility = '17'
 
+credentials {
+    username = System.getenv("JFROG_USER") ?: ''
+    password = System.getenv("JFROG_API_KEY") ?: ''
+    url = System.getenv("JFROG_URL") ?: ''
+}
+
 repositories {
   mavenCentral()
 }
@@ -51,6 +57,27 @@ dependencies {
 
 tasks.named('test') {
   useJUnitPlatform()
+}
+
+// Publishing configuration
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            // Customize the artifact name if needed or add other artifacts
+            artifact jar
+        }
+    }
+
+    repositories {
+        maven {
+            url project.findProperty("url") // Change to your JFrog repo URL
+            credentials {
+                username = project.findProperty("artifactory_user") ?: ''
+                password = project.findProperty("artifactory_password") ?: ''
+            }
+        }
+    }
 }
 
 checkstyle {
