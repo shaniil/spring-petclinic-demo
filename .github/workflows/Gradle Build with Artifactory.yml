@@ -62,6 +62,7 @@ jobs:
       -
         name: Build Gradle package
         run: |
+          jf gradle clean build --gradle-version 8.12.1
           jf gradle clean artifactoryPublish -b ./build.gradle --build-name "${{ env.JFROG_CLI_BUILD_NAME }}" --build-number "${{ env.JFROG_CLI_BUILD_NUMBER }}" 
           #./gradlew build
           
