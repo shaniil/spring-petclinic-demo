@@ -44,13 +44,13 @@ jobs:
         env:
           JF_URL: https://${{ vars.JF_URL }}/
         with:
-          oidc-provider-name: mikeho-github
-          oidc-audience: mikeho-audience
+          oidc-provider-name: shani-frogbot-integration
+          oidc-audience: shani-frogbot-integration
           
       -
         name: Configure Build
         run: |
-          jf gradlec --repo-resolve mikeho-petclinc-gradle-remote --repo-deploy mikeho-petclinic-gradle-dev-local
+          jf gradlec --repo-resolve shani-petclinc-gradle-remote --repo-deploy shani-petclinic-gradle-dev-local
       #-
       #  name: JFrog Curation Audit
       #  run: |
@@ -62,8 +62,8 @@ jobs:
       -
         name: Build Gradle package
         run: |
-          #jf gradle clean artifactoryPublish -b ./build.gradle --build-name "${{ env.JFROG_CLI_BUILD_NAME }}" --build-number "${{ env.JFROG_CLI_BUILD_NUMBER }}" --project ${{ env.JFROG_CLI_BUILD_PROJECT }} --scan true
-          ./gradlew build
+          jf gradle clean artifactoryPublish -b ./build.gradle --build-name "${{ env.JFROG_CLI_BUILD_NAME }}" --build-number "${{ env.JFROG_CLI_BUILD_NUMBER }}" --project ${{ env.JFROG_CLI_BUILD_PROJECT }} --scan true
+          #./gradlew build
           
       -
         name: Publish build info
