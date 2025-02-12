@@ -73,8 +73,8 @@ publishing {
         maven {
             url project.findProperty("url") // Change to your JFrog repo URL
             credentials {
-                username = project.findProperty("artifactory_user") ?: ''
-                password = project.findProperty("artifactory_password") ?: ''
+                username = project.findProperty("username") ?: ''
+                password = project.findProperty("password") ?: ''
             }
         }
     }
