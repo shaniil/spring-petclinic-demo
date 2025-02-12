@@ -37,12 +37,12 @@ allprojects {
 }
 
 artifactory {
-    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    contextUrl = "https://soleng.jfrog.io/"   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
             repoKey = 'shani-gradle-dev-local'
             username = System.getenv("JFROG_USER")
-            password = "System.getenv("JFROG_API_KEY")
+            password = System.getenv("JFROG_API_KEY")
             maven = true
             
         }
@@ -51,7 +51,7 @@ artifactory {
         repository {
             repoKey = 'shani-gradle-remote'
             username = System.getenv("JFROG_USER")
-            password = "System.getenv("JFROG_API_KEY")
+            password = System.getenv("JFROG_API_KEY")
             maven = true
             
         }
