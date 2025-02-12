@@ -51,14 +51,14 @@ jobs:
         name: Configure Build
         run: |
           jf gradlec --repo-resolve shani-petclinc-gradle-remote --repo-deploy shani-petclinic-gradle-dev-local
-      #-
-      #  name: JFrog Curation Audit
-      #  run: |
-      #    jf curation-audit
-      #-
-      #  name: Audit Source Code
-      #  run: |
-      #    jf audit --licenses --format=table --gradle=true
+      -
+        name: JFrog Curation Audit
+        run: |
+          jf curation-audit
+      -
+        name: Audit Source Code
+        run: |
+          jf audit --licenses --format=table --gradle=true
       -
         name: Build Gradle package
         run: |
