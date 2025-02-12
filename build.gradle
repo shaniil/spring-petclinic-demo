@@ -21,6 +21,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'io.spring.javaformat'
+apply plugin: "com.jfrog.artifactory"
 
 gradle.startParameter.excludedTaskNames += [ "checkFormatAot", "checkFormatAotTest" ]
 
@@ -32,9 +33,6 @@ repositories {
   mavenCentral()
 }
 
-allprojects {
-    apply plugin: "com.jfrog.artifactory"
-}
 
 artifactory {
     contextUrl = "https://soleng.jfrog.io/"   //The base Artifactory URL if not overridden by the publisher/resolver
