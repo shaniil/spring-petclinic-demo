@@ -17,14 +17,45 @@ group = 'org.springframework.samples'
 version = '3.2.0'
 sourceCompatibility = '17'
 
-credentials {
-    username = System.getenv("JFROG_USER") ?: ''
-    password = System.getenv("JFROG_API_KEY") ?: ''
-    url = System.getenv("JFROG_URL") ?: ''
-}
-
 repositories {
   mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        
+    }
+    dependencies {
+        //Check for the latest version here: http://plugins.gradle.org/plugin/com.jfrog.artifactory
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+    }
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+}
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"   //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'shani-gradle-dev-local'
+            username = System.getenv("JFROG_USER")
+            password = "System.getenv("JFROG_API_KEY")
+            maven = true
+            
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'shani-gradle-remote'
+            username = System.getenv("JFROG_USER")
+            password = "System.getenv("JFROG_API_KEY")
+            maven = true
+            
+        }
+    }
 }
 
 ext.webjarsFontawesomeVersion = "4.7.0"
@@ -57,27 +88,6 @@ dependencies {
 
 tasks.named('test') {
   useJUnitPlatform()
-}
-
-// Publishing configuration
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            // Customize the artifact name if needed or add other artifacts
-            artifact jar
-        }
-    }
-
-    repositories {
-        maven {
-            url project.findProperty("url") // Change to your JFrog repo URL
-            credentials {
-                username = project.findProperty("username") ?: ''
-                password = project.findProperty("password") ?: ''
-            }
-        }
-    }
 }
 
 checkstyle {
