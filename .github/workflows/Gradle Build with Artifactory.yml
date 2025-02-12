@@ -75,9 +75,9 @@ jobs:
           jf rt bce "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
           # Collect VCS details from Git and add them to the build
           jf rt bag "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
-      #-
-      #  name: Scan build
-      #  if: github.ref == 'refs/heads/main'
-      #  run: |
-      #    jf build-scan --vuln --fail=false --project ${{ env.JFROG_CLI_BUILD_PROJECT }} "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
+      -
+        name: Scan build
+        if: github.ref == 'refs/heads/main'
+        run: |
+          jf build-scan --vuln --fail=false "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
      
