@@ -23,9 +23,16 @@ repositories {
   mavenCentral()
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
 
 artifactory {
-    contextUrl = "https://soleng.jfrog.io/"   //The base Artifactory URL if not overridden by the publisher/resolver
+    contextUrl = 'https://soleng.jfrog.io/'   //The base Artifactory URL if not overridden by the publisher/resolver
     publish {
         repository {
             repoKey = 'shani-gradle-dev-local'
