@@ -44,8 +44,8 @@ jobs:
         env:
           JF_URL: https://${{ vars.JF_URL }}/
         with:
-          oidc-provider-name: mikeho-github
-          oidc-audience: mikeho-audience
+          oidc-provider-name: shani-frogbot-integration
+          oidc-audience: shani-audience
       -
         name: Configure Build
         run: |
