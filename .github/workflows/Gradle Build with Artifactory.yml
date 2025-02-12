@@ -63,18 +63,18 @@ jobs:
         name: Build Gradle package
         run: |
           jf gradle clean build #--gradle-version 8.12.1
-          #jf gradle clean artifactoryPublish -b ./build.gradle --build-name "${{ env.JFROG_CLI_BUILD_NAME }}" --build-number "${{ env.JFROG_CLI_BUILD_NUMBER }}" 
+          jf gradle artifactoryPublish -b ./build.gradle --build-name "${{ env.JFROG_CLI_BUILD_NAME }}" --build-number "${{ env.JFROG_CLI_BUILD_NUMBER }}" 
           #./gradlew build
           
       -
         name: Publish build info
         if: github.ref == 'refs/heads/main'
         run: |
-          jf rt build-publish --project ${{ env.JFROG_CLI_BUILD_PROJECT }} "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
+          jf rt build-publish "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
           # Collect environment variables for the build
-          jf rt bce --project ${{ env.JFROG_CLI_BUILD_PROJECT }} "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
+          jf rt bce "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
           # Collect VCS details from Git and add them to the build
-          jf rt bag --project ${{ env.JFROG_CLI_BUILD_PROJECT }} "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
+          jf rt bag "${{ env.JFROG_CLI_BUILD_NAME }}" "${{ env.JFROG_CLI_BUILD_NUMBER }}"
       #-
       #  name: Scan build
       #  if: github.ref == 'refs/heads/main'
